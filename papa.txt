@@ -1,0 +1,150 @@
+//papaparse code
+
+for(i=0;i<results.data.length;i++){
+              idData.push(results.data[i].ID);
+              vencodeData.push(results.data[i].VendorCode);
+              prodcatData.push(results.data[i].ProductCategory);
+              proddescData.push(results.data[i].ProductDescription);
+              countData.push(results.data[i].Count);
+              costData.push(results.data[i].Cost);
+              currencyData.push(results.data[i].Currency);
+              expdateData.push(results.data[i].ProductExpDate);
+            }
+            console.log(idData);
+            console.log(vencodeData);
+            console.log(prodcatData);
+            console.log(proddescData);
+            console.log(countData);
+            console.log(costData);
+            console.log(currencyData);
+            console.log(expdateData);
+
+//database code
+
+connection.connect((err) => {
+                if (err) throw err;
+                console.log("db connected");
+                const insquery = "INSERT INTO body VALUES(?,?,?,?,?,?,?,?)";
+                connection.query(
+                  insquery,
+                  [
+                    results.data[i].ID,
+                    results.data[i].VendorCode,
+                    results.data[i].ProductCategory,
+                    results.data[i].ProductDescription,
+                    results.data[i].Count,
+                    results.data[i].Cost,
+                    results.data[i].Currency,
+                    results.data[i].ProductExpDate,
+                  ],
+                  (err, result) => {
+                    if (err) throw err;
+                    console.log(results);
+                  }
+                );
+              });
+
+
+
+
+const mysql= import('mysql');
+var con = new mysql({
+  host: "localhost",
+  database: "newDB",
+  user: "root",
+  password: "vijayasri" });
+
+
+
+
+
+
+  const express = require('express');
+const app=express();
+const path=require('path');
+//const connection = require('.public/database');
+const statpath=path.join(__dirname,'../public');
+
+app.use(express.static(statpath));
+app.get('/',(req,res)=>{
+    var options={
+        root :path.join(__dirname,'../public')
+    }
+    var fileName="uploadFile.html";
+    res.sendFile(fileName,options,(err)=>{
+        if(err) throw err;
+        console.log("sent:",fileName);
+    });
+});
+
+app.listen(3000,()=>{
+    console.log("App is listening...");
+    console.log(__dirname);
+    /*connection.connect((err)=>{
+        if(err) throw err;
+        console.log("db connected");
+    });*/
+});
+
+let fileInput1 = document.querySelector(".default-file-input");
+
+const idData = [];
+const vencodeData = [];
+const prodcatData = [];
+const proddescData = [];
+const countData = [];
+const costData = [];
+const currencyData = [];
+const expdateData = [];
+
+const uploadconfirm = document
+  .getElementById("uploadconfirm")
+  .addEventListener("click", () => {
+    Papa.parse(fileInput1.files[0], {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        for (i = 0; i < results.data.length; i++) {
+          idData.push(results.data[i].ID);
+          vencodeData.push(results.data[i].VendorCode);
+          prodcatData.push(results.data[i].ProductCategory);
+          proddescData.push(results.data[i].ProductDescription);
+          countData.push(results.data[i].Count);
+          costData.push(results.data[i].Cost);
+          currencyData.push(results.data[i].Currency);
+          expdateData.push(results.data[i].ProductExpDate);
+        }
+        console.log(idData);
+        console.log(vencodeData);
+        console.log(prodcatData);
+        console.log(proddescData);
+        console.log(countData);
+        console.log(costData);
+        console.log(currencyData);
+        console.log(expdateData);
+      },
+    });
+  });
+
+
+
+
+  
+        const formData = new FormData();
+        formData.append("csvFile",inpFile.files[0]);
+
+
+
+       <% for(var i=0;i< user.length;i++){ %>
+                  <tr>
+                    <td><%= user[i].Id %></td>
+                    <td><%= user[i].vendor_code %></td>
+                    <td><%= user[i].prod_cat %></td>
+                    <td><%= user[i].prod_desc %></td>
+                    <td><%= user[i].count_of_prod %></td>
+                    <td><%= user[i].cost_of_prod %></td>
+                    <td><%= user[i].currency %></td>
+                    <td><%= user[i].prod_exp %></td>
+                  </tr>
+              <% } %> 
